@@ -5,14 +5,23 @@ item_shop = {
     'Level 2 Armor' : 200,
     'Level 3 Armor' : 350,
     }
-
+money = 500
 while True:
-    print("ITEM SHOP")
-    answer = input("Do you want to see the shop? Yes or no? ")
-    if answer == "Yes":
+    answer = input("Do you want to see the (s)hop or do you wanna check (c)urrency? ")
+    if answer == "s":
+        print("ITEM SHOP")
         for key, value in item_shop.items():
             print("%s:%s" %(key, value))
-    else:
-        break
-        
-    
+
+        choice = input("What do you want to buy? Or do you want to see your (c)urrency? ")
+        if choice in item_shop.items():
+            print("no")
+        elif choice == "c":
+            print("YOUR MONEY IS %s" %(money))
+        else:
+            money = money - item_shop.get(choice)
+            print("You bought %s and your balance is %s" %(choice, money))
+    if answer == "c":
+        print("YOUR MONEY IS %s" %(money))
+   
+   
