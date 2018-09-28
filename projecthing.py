@@ -23,9 +23,9 @@ money = 2000
 inventory = {
     }
 while True:
-    answer = input("Do you want to see the (s)hop, check (b)alance, or check (i)nventory? ")
-    if answer.strip() == "s":
-        print("ITEM SHOP \n")
+    answer = input("Do you want to see the (s)hop, check (b)alance, check (i)nventory or (se)ll something? ")
+    if answer.strip().lower() == "s":
+        print("ITEM SHOP: \n")
         for key, value in sorted(item_shop.items()):
             print("%s:%s " %(key, value))
 
@@ -39,24 +39,45 @@ while True:
                     inventory[choice] += 1
                 else:
                     inventory[choice] = 1
-                print("You bought %s and your balance is %s" %(choice, money))
-        elif choice.strip() == "b":
-            print("Your balance is %s" %(money))
-        elif choice.strip() == "i":
+                print("You bought %s and your balance is %s \n" %(choice, money))
+        elif choice.strip().lower() == "b":
+            print("Your balance is %s \n" %(money))
+        elif choice.strip().lower() == "i":
             if inventory: 
                 print("%s:%s" %(key, value))
             else:
-                print("Your inventory is empty! ")
+                print("Your inventory is empty! \n")
         else:
-            print("That is not in the shop!")
-        
-            
-    if answer.strip() == "b":
-        print("Your balance is %s" %(money))
-    if answer.strip() == "i":
+            print("That is not in the shop! \n")
+
+    if answer.strip().lower() == "se":
+        if not bool(inventory):
+            print("You have nothing to sell! \n")
+        else:
+            print("INVENTORY: \n")
+            for key, value in sorted(inventory.items()):
+                print("%s:%s " %(key, value)) 
+
+            choice2 = input("What do you want to sell, or do you want to go (b)ack? ")
+            if choice2 in inventory:
+                if inventory[choice2] > 1:
+                    inventory[choice] = inventory[choice] - 1
+                else:
+                    del inventory[choice2]
+                money = money + item_shop.get(choice2)
+                print("You have sold %s and your balance is %s \n" %(choice2, money))
+            elif choice2.strip().lower() == "b":
+                print("")
+            else:
+                print("That is not in your inventory! \n")
+                
+    if answer.strip().lower() == "b":
+        print("Your balance is %s \n" %(money))
+    if answer.strip().lower() == "i":
         if inventory:
             for key, value in inventory.items():
+                print("INVENTORY: \n")
                 print("%s:%s" %(key, value))
         else:
-            print("Your inventory is empty! ")
-
+            print("Your inventory is empty! \n")           
+                
